@@ -7,6 +7,11 @@
   position: relative;
 }
 
+.header_white {
+  background-color: #fff;
+  color: #000;
+}
+
 .header__container {
   display: flex;
   justify-content: space-between;

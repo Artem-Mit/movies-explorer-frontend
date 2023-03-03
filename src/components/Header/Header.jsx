@@ -1,20 +1,22 @@
 import React from 'react';
 import './Header.css';
 import logo from '../../images/logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 import Burger from '../Burger/Burger';
 
-export default function Header({ loggedIn = true}) {
+export default function Header({ loggedIn = true, theme }) {
+
+  const location = useLocation();
 
   return (
-    <header className='header'>
+    <header className={`header ${theme === 'white' ? 'header_white' : ''}`}>
       <div className='header__container'>
         <Link to='/'>
           <img src={logo} alt="logo" className='header__logo' />
         </Link>
         <Navigation />
-        {loggedIn && <Burger />}
+        {(loggedIn && location.pathname !== '/') && <Burger />}
       </div>
     </header>
   )
