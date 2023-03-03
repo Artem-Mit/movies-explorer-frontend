@@ -1,0 +1,21 @@
+.sectionButton {
+  background-color: #E8E8E8;
+  border: none;
+  border-radius: 10px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: -0.04em;
+  width: 90px;
+  height: 60px;
+  cursor: pointer;
+}
+
+
+
+@media screen and (max-width: 1259px) {
+  .sectionButton {
+    width: 84px;
+    height: 57px;
+  }
+}

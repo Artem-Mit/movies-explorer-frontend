@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navigation.css'
 
-export default function Navigation({ loggedIn = true }) {
+export default function Navigation({ loggedIn }) {
   return (
     <nav className={`navigation ${loggedIn ? "navigation_loggedIn" : ''}`}>
       {!loggedIn && (
