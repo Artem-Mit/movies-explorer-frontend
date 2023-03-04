@@ -11,14 +11,16 @@ export default function Main() {
   return (
     <>
       <Header />
-      <Promo />
-      <NavTab />
-      <AboutProject />
-      <Techs />
-      <AboutMe>
-        <Portfolio />
-      </AboutMe>
-      <Footer/>
+      <main>
+        <Promo />
+        <NavTab />
+        <AboutProject />
+        <Techs />
+        <AboutMe>
+          <Portfolio />
+        </AboutMe>
+      </main>
+      <Footer />
     </>
   )
 }
