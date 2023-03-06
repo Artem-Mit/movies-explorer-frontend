@@ -9,6 +9,11 @@
   width: 90px;
   height: 60px;
   cursor: pointer;
+  transition: all .4s;
+}
+
+.sectionButton:hover {
+  opacity: .8;
 }
 
 

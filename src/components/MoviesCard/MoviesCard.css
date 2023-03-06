@@ -27,18 +27,25 @@
   object-fit: cover;
 }
 
-.moviesCard__add-button {
+.moviesCard__button {
   width: 30px;
   height: 30px;
   position: absolute;
   top: 19px;
   right: 14px;
-  background-image: url(../../images/movieAddButton.png);
   cursor: pointer;
 }
 
-.moviesCard__add-button-saved {
+.moviesCard__button_not-saved {
+  background-image: url(../../images/movieAddButton.png);
+}
+
+.moviesCard__button_saved {
   background-image: url(../../images/movieAddButton_saved.png);
+}
+
+.moviesCard__delete-button {
+  background-image: url(../../images/movieDeleteButton.png);
 }
 
 @media screen and (max-width: 1259px) {

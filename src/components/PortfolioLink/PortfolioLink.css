@@ -4,4 +4,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: all .4s;
+}
+
+.portfolio__link:hover {
+  opacity: .7;
 }

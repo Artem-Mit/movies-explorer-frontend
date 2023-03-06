@@ -1,23 +1,25 @@
 import React from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import { defaultMovies } from '../../utils/defaultMovies';
 
-export default function MoviesCardList() {
+
+export default function MoviesCardList({ films }) {
 
   return (
-    <section className='moviesCardList'>
+    <div className='moviesCardList'>
       <div className='moviesCardList__cards'>
-        {defaultMovies.map((movie) =>
+        {films.slice(0, 12).map((movie) =>
           <MoviesCard
             key={movie.id}
             title={movie.title}
             length={movie.length} />
         )}
       </div>
-      <div className='moviesCardList__button'>
-        Еще
-      </div>
-    </section>
+      {films.length > 12 &&
+        <div className='moviesCardList__button'>
+          Еще
+        </div>
+      }
+    </div>
   )
 }

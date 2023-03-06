@@ -42,6 +42,11 @@
 .footer__link {
   text-decoration: none;
   color: inherit;
+  transition: all .4s;
+}
+
+.footer__link:hover {
+  opacity: .7;
 }
 
 @media screen and (max-width: 1259px) {

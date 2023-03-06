@@ -58,5 +58,10 @@ export const defaultMovies = [
     title: '-13 слова о дизайне',
     length: '1ч 47м',
     id: 12,
+  },
+  {
+    title: '-23 слова о дизайне',
+    length: '1ч 47м',
+    id: 13,
   }
 ];

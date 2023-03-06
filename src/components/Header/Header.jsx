@@ -1,22 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Header.css';
 import logo from '../../images/logo.png';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate  } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 import Burger from '../Burger/Burger';
 
-export default function Header({ loggedIn = true, theme }) {
+export default function Header() {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [navTabVisible, setNavTabVisible] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation().pathname;
+  const notMainPage = location !== '/';
 
-  const location = useLocation();
+  function login() {
+    setLoggedIn(true);
+    navigate('/movies');
+  }
+
+  function logout() {
+    setLoggedIn(false);
+  }
+
+  function showNavigation() {
+    setNavTabVisible(prev => !prev)
+  }
 
   return (
-    <header className={`header ${theme === 'white' ? 'header_white' : ''}`}>
+    <header className={`header ${notMainPage ? 'header_white' : ''}`}>
       <div className='header__container'>
         <Link to='/'>
-          <img src={logo} alt="logo" className='header__logo' />
+          <img src={logo} alt="logo" className='header__logo' onClick={() => logout()}/>
         </Link>
-        <Navigation />
-        {(loggedIn && location.pathname !== '/') && <Burger />}
+        <Navigation loggedIn={loggedIn} login={login} showNav={navTabVisible} toggleNav={showNavigation}/>
+        {(loggedIn && notMainPage) && <Burger toggleNav={showNavigation}/>}
       </div>
     </header>
   )

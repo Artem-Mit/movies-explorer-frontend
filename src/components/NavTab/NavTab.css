@@ -20,6 +20,11 @@
   font-weight: 500;
   font-size: 13px;
   line-height: 16px;
+  transition: all .4s;
+}
+
+.navTab__link:hover {
+  opacity: .7;
 }
 
 @media screen and (max-width: 550px) {
