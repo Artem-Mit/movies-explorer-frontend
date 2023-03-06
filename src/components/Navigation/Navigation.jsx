@@ -2,8 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navigation.css'
 
-export default function Navigation({ loggedIn, showNav, login, toggleNav }) {
-
+export default function Navigation({ loggedIn, showNav, login, toggleNav, logout }) {
+  function goHome() {
+    logout()
+    toggleNav()
+  }
   return (
     <>
       {!loggedIn && (
@@ -26,7 +29,7 @@ export default function Navigation({ loggedIn, showNav, login, toggleNav }) {
             <li className='navigation__link-container_loggedIn'>
               <NavLink to='/' end={true}
                 className={({ isActive }) => isActive ? 'navigation__link_loggedIn navigation__link_active' : 'navigation__link_loggedIn'}
-                onClick={toggleNav}>
+                onClick={goHome}>
                 Главная
               </NavLink>
             </li>

@@ -31,7 +31,7 @@ export default function Header() {
         <Link to='/'>
           <img src={logo} alt="logo" className='header__logo' onClick={() => logout()}/>
         </Link>
-        <Navigation loggedIn={loggedIn} login={login} showNav={navTabVisible} toggleNav={showNavigation}/>
+        <Navigation loggedIn={loggedIn} login={login} logout={logout} showNav={navTabVisible} toggleNav={showNavigation}/>
         {(loggedIn && notMainPage) && <Burger toggleNav={showNavigation}/>}
       </div>
     </header>
