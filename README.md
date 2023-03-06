@@ -1,2 +1,4 @@
-# movies-explorer-frontend
-Frontend for YandexPractikum diploma
+# Фронт для дипломного проекта Яндекс Практикум
+## Запуск проекта
+
+`npm start` — запускает сервер   

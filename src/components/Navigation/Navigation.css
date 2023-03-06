@@ -103,7 +103,7 @@
 
 @media screen and (max-width: 769px) {
   .navigation_loggedIn {
-    visibility: hidden;
+    display: none;
     position: fixed;
     right: 0;
     top: 0;
@@ -114,7 +114,7 @@
   }
 
   .navigation__opened {
-    visibility: visible;
+    display: block;
   }
 
   .navigation__links-container_loggedIn {
