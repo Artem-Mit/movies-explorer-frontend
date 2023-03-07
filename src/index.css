@@ -4,6 +4,7 @@
 .body {
   font-family: "Inter", sans-serif;
   font-style:  normal;
+  font-weight: 400;
   color: #FFF;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

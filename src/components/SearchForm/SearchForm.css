@@ -27,10 +27,13 @@
   padding: 0;
   border: none;
   padding-left: 25px;
-  font-weight: 400;
   font-size: 18px;
   line-height: 20px;
   outline: none;
+}
+
+.searchForm__input:focus + .searchForm__button {
+  background-color: #FF3055;
 }
 
 .searchForm__button {

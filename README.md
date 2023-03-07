@@ -2,3 +2,5 @@
 ## Запуск проекта
 
 `npm start` — запускает сервер   
+
+[Макет](https://disk.yandex.ru/d/UxadTmah2jSTgA)

@@ -29,6 +29,13 @@
   opacity: .8;
 }
 
+.moviesCardList__notFoundText {
+  color: #000;
+  min-height: 120px;
+  text-align: center;
+  font-weight: 500;
+}
+
 @media screen and (max-width: 1259px) {
   .moviesCardList__cards {
     margin: 0 auto;

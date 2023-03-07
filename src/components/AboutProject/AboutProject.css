@@ -25,7 +25,6 @@
   max-width: 550px;
   margin: 0;
   margin-top: 26px;
-  font-weight: 400;
   font-size: 14px;
   line-height: 20px;
 }
@@ -75,7 +74,6 @@
 .aboutProject__timeLine-backend-time,
 .aboutProject__timeLine-frontend-time {
   padding: 9px 0;
-  font-weight: 400;
   font-size: 14px;
   line-height: 17px;
   margin: 0;
@@ -89,7 +87,6 @@
 
   .aboutProject__stage-text {
     margin-top: 22px;
-    font-weight: 400;
     font-size: 12px;
     line-height: 18px;
   }

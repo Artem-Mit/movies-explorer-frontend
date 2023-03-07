@@ -8,14 +8,13 @@
 
 .notFoundPage__title {
   margin: 0;
-  font-weight: 400;
   font-size: 140px;
   line-height: 169px;
+  font-weight: 400;
 }
 
 .notFoundPage__text {
   margin: 5px 0 0 0;
-  font-weight: 400;
   font-size: 16px;
   line-height: 19px;
 }
@@ -23,7 +22,6 @@
 .notFoundPage__link {
   color: #3456F3;
   margin-top: 184px;
-  font-weight: 400;
   font-size: 14px;
   line-height: 17px;
   transition: all .4s;

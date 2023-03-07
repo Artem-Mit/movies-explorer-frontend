@@ -73,7 +73,6 @@
 .navigation__link_loggedIn {
   text-decoration: none;
   color: inherit;
-  font-weight: 400;
   font-size: 14px;
   line-height: 18px;
   transition: all .4s;
