@@ -34,18 +34,22 @@
   top: 19px;
   right: 14px;
   cursor: pointer;
+  border: none;
+  border-radius: 50%;
+  padding: 0;
 }
 
 .moviesCard__button_not-saved {
-  background-image: url(../../images/movieAddButton.png);
+  background-image: url(../../images/movieButton_not-saved.svg);
+
 }
 
 .moviesCard__button_saved {
-  background-image: url(../../images/movieAddButton_saved.png);
+  background-image: url(../../images/movieButton_saved.svg);
 }
 
 .moviesCard__delete-button {
-  background-image: url(../../images/movieDeleteButton.png);
+  background-image: url(../../images/movieDeleteButton.svg);
 }
 
 @media screen and (max-width: 1259px) {

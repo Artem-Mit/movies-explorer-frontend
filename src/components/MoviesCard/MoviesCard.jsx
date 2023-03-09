@@ -14,10 +14,10 @@ export default function MoviesCard({ title, length }) {
       <h3 className='moviesCard__title'>{title}</h3>
       <p className='moviesCard__length'>{length}</p>
       <img src={moviePic} alt={title} className='moviesCard__image' />
-      <div
+      <button
         className={location === '/movies' ? allFilmsClass : savedFilmsClass}
         onClick={() => setFavouriteFilm(prev => !prev)}>
-      </div>
+      </button>
     </article>
   )
 }

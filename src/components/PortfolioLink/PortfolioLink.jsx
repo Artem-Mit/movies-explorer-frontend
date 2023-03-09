@@ -5,9 +5,9 @@ export default function PortfolioLink({link, name}) {
   return (
     <a href={link}
       className='portfolio__link'
-      target='_blanc' >
+      target='blanc' >
       {name}
-      <span className='porftolio__link-arrow'>↗</span>
+      <span className='portfolio__link-arrow'>↗</span>
     </a>
   )
 }

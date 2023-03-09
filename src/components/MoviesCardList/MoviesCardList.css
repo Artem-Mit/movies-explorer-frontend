@@ -1,7 +1,7 @@
 .moviesCardList__cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(auto, 1fr);
+  grid-template-rows: auto;
   column-gap: 24px;
   row-gap: 30px;
   justify-items: center;

@@ -18,7 +18,9 @@ export default function Register() {
           onChange={handleChange}
           type='text'
           name='name'
+          id='name'
           className='authForm__input'
+          autoComplete='name'
           required minLength={2} maxLength={30}
           value={values.name}></input>
         <span className='authForm__error'>{errors.name}</span>
@@ -28,7 +30,9 @@ export default function Register() {
           onChange={handleChange}
           type='email'
           name='email'
+          id='email'
           className='authForm__input'
+          autoComplete='email'
           value={values.email}
           required></input>
         <span className='authForm__error'>{errors.email}</span>
@@ -38,9 +42,10 @@ export default function Register() {
           onChange={handleChange}
           type='password'
           name='password'
+          id='password'
           className='authForm__input'
           value={values.password}
-          autoComplete='true'
+          autoComplete='new-password'
           required></input>
         <span className='authForm__error'>{errors.password}</span>
       </label>

@@ -18,7 +18,9 @@ export default function Login() {
           onChange={handleChange}
           type='email'
           name='email'
+          id='email'
           className='authForm__input'
+          autoComplete='email'
           value={values.email}
           required></input>
         <span className='authForm__error'>{errors.email}</span>
@@ -28,9 +30,10 @@ export default function Login() {
           onChange={handleChange}
           type='password'
           name='password'
+          id='password'
           className='authForm__input'
           value={values.password}
-          autoComplete='true'
+          autoComplete='current-password'
           required></input>
         <span className='authForm__error'>{errors.password}</span>
       </label>

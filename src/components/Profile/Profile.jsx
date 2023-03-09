@@ -3,7 +3,7 @@ import './Profile.css';
 
 export default function Profile() {
   return (
-    <section className='profile'>
+    <section className='profile' aria-label='Ваш профиль'>
       <p className="profile__title">Привет, Name!</p>
       <ul className='profile__data'>
         <li className='profile__data-section'>Имя<p className="profile__data-info">Ваше имя</p></li>

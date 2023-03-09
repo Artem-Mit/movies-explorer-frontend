@@ -9,7 +9,7 @@ export default function SavedMovies() {
   return (
     <>
       <SearchForm />
-      <section className='saved_movies'>
+      <section className='saved-movies' aria-label='Сохраненные фильмы'>
         <MoviesCardList films={savedMovies}/>
       </section>
     </>

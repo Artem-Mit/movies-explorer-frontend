@@ -11,10 +11,10 @@ export default function Footer() {
         <p className='footer__date'>©{(new Date().getFullYear())}</p>
         <ul className="footer__links">
           <li className='footer__link-container'>
-            <a className='footer__link' href='https://practicum.yandex.ru' target='_blanc'>Яндекс.Практикум</a>
+            <a className='footer__link' href='https://practicum.yandex.ru' target='blanc'>Яндекс.Практикум</a>
           </li>
           <li className='footer__link-container'>
-            <a className='footer__link' href='https://github.com/Artem-Mit' target='_blanc'>Github</a>
+            <a className='footer__link' href='https://github.com/Artem-Mit' target='blanc'>Github</a>
           </li>
         </ul>
       </div>

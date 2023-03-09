@@ -8,7 +8,7 @@ export default function Movies() {
   return (
     <>
       <SearchForm />
-      <section className="movies">
+      <section className="movies" aria-label='Фильмы'>
         <MoviesCardList films = {defaultMovies}/>
       </section>
     </>

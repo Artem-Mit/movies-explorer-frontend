@@ -7,7 +7,7 @@ export default function AboutMe({children}) {
   return (
     <section className='aboutMe' id='aboutMe'>
       <SectionTitle title='Студент' section='aboutMe' />
-      <article className='aboutMe__student'>
+      <article className='aboutMe__student'aria-label='Информация о студенте'>
         <div className='aboutMe__student-information'>
           <p className='aboutMe__student-name'>Артем</p>
           <p className='aboutMe__student-profession'>Фронтенд-разработчик, 30 лет</p>
