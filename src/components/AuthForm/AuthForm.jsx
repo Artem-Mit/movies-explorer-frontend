@@ -1,6 +1,6 @@
 import React from 'react';
 import './AuthForm.css';
-import logo from '../../images/logo.png';
+import logo from '../../images/logo.svg';
 import { Link, useLocation } from 'react-router-dom';
 
 export default function AuthForm({ title, name, buttonText, onSubmit, children }) {
