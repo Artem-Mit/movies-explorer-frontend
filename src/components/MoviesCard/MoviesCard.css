@@ -8,6 +8,7 @@
 }
 
 .moviesCard__title {
+  max-width: 280px;
   margin: 14px 0 0 14px;
   font-weight: 500;
   font-size: 15px;
@@ -57,11 +58,19 @@
     max-width: 339px;
     max-height: 258px;
   }
+
+  .moviesCard__title {
+    max-width: 250px;
+  }
 }
 
 @media screen and (max-width: 550px) {
   .moviesCard {
     max-width: 300px;
     max-height: 236px;
+  }
+
+  .moviesCard__title {
+    max-width: 210px;
   }
 }

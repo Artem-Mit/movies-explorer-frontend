@@ -3,21 +3,20 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 
-export default function MoviesCardList({ films }) {
+export default function MoviesCardList({films}) {
 
   return (
     <div className='moviesCardList'>
-      {!films && <p className='moviesCardList__notFoundText'>Фильмы не найдены</p>}
-      {films &&
+      {films.length === 0 && <p className='moviesCardList__notFoundText'>Фильмы не найдены</p>}
+      {films.length > 0 &&
         <div className='moviesCardList__cards'>
           {films.slice(0, 12).map((movie) =>
             <MoviesCard
               key={movie.id}
-              title={movie.title}
-              length={movie.length} />
+              movie={movie} />
           )}
         </div>}
-      {films && films.length > 12 &&
+      {films.length > 12 &&
         <div className='moviesCardList__button'>
           Еще
         </div>

@@ -4,6 +4,13 @@
   padding-top: 70px;
 }
 
+.movies__error {
+  color: #000;
+  min-height: 70px;
+  text-align: center;
+  font-weight: 500;
+}
+
 @media screen and (max-width: 1259px) {
   .movies {
     max-width: 708px;
