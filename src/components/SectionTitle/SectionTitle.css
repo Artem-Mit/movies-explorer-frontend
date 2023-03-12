@@ -1,0 +1,23 @@
+.sectionTitle {
+  margin: 0;
+  padding: 110px 0 23px 0;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  border-bottom: 1px #000 solid;
+}
+
+@media screen and (max-width: 1259px) {
+  .sectionTitle {
+    padding: 67px 0 23px 0;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .sectionTitle {
+    padding: 70px 0 23px 0;
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+}

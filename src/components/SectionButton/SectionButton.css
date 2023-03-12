@@ -1,0 +1,29 @@
+.sectionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #E8E8E8;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #000;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: -0.04em;
+  width: 90px;
+  height: 60px;
+  cursor: pointer;
+  transition: all .4s;
+}
+
+.sectionButton:hover {
+  opacity: .8;
+}
+
+
+
+@media screen and (max-width: 1259px) {
+  .sectionButton {
+    width: 84px;
+    height: 57px;
+  }
+}

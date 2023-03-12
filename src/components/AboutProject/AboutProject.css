@@ -1,0 +1,146 @@
+.aboutProject {
+  max-width: 1140px;
+  min-height: 608px;
+  color: #000;
+  margin: 0 auto;
+}
+
+.aboutProject__stages {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 70px;
+}
+
+.aboutProject__stage-title {
+  margin: 0;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+}
+
+.aboutProject__stage-text {
+  max-width: 550px;
+  margin: 0;
+  margin-top: 26px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.aboutProject__timeLine {
+  width: 100%;
+  display: grid;
+  grid-template-areas:
+    'backend-time frontend-time'
+    'backend-title frontend-title';
+  grid-template-rows: 36px 17px;
+  grid-template-columns: 1fr 3fr;
+  row-gap: 14px;
+  text-align: center;
+  align-items: center;
+  margin-top: 110px;
+}
+
+.aboutProject__timeLine-backend-time {
+  grid-area: backend-time;
+  background-color: #2BE080;
+}
+
+.aboutProject__timeLine-frontend-time {
+  grid-area: frontend-time;
+  background-color: #F2F2F2;
+
+}
+
+.aboutProject__timeLine-backend-title {
+  grid-area: backend-title;
+}
+
+.aboutProject__timeLine-frontend-title {
+  grid-area: frontend-title;
+}
+
+.aboutProject__timeLine-frontend-title,
+.aboutProject__timeLine-backend-title {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #A0A0A0;
+  margin: 0;
+}
+
+.aboutProject__timeLine-backend-time,
+.aboutProject__timeLine-frontend-time {
+  padding: 9px 0;
+  font-size: 14px;
+  line-height: 17px;
+  margin: 0;
+}
+
+@media screen and (max-width: 1259px) {
+  .aboutProject {
+    margin: 0 50px;
+    min-height: 585px;
+  }
+
+  .aboutProject__stage-text {
+    margin-top: 22px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .aboutProject__timeLine {
+    margin-top: 93px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .aboutProject {
+    min-height: 641px;
+    margin: 0 18px;
+  }
+
+  .aboutProject__stages {
+    flex-direction: column;
+    margin-top: 60px;
+  }
+
+  .aboutProject__stage-title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .aboutProject__stage-text {
+    margin-top: 16px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .aboutProject__stage:not(:first-child) {
+    margin-top: 56px;
+  }
+
+  .aboutProject__timeLine {
+    margin-top: 60px;
+  }
+
+  .aboutProject__timeLine-frontend-title,
+  .aboutProject__timeLine-backend-title {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+  }
+
+  .aboutProject__timeLine-backend-time,
+  .aboutProject__timeLine-frontend-time {
+    padding: 11px 0;
+    font-size: 11px;
+    line-height: 13px;
+  }
+
+  .aboutProject__timeLine {
+    grid-template-columns: 1fr 2fr;
+  }
+}
