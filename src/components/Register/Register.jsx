@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AuthForm from '../AuthForm/AuthForm';
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
+import mainApi from '../../utils/MainApi';
 
 export default function Register() {
-  const { values, handleChange, errors, resetForm } =
+  const [error, setError] = useState('')
+  const { values, handleChange, errors, resetForm, isValid } =
     useFormAndValidation({ email: "", password: "", name: ""});
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
+    setError('')
+    await mainApi.register({name: values.name, email: values.email, password: values.password})
+      .then((res) => console.log(res))
+      .catch((err) => setError(err))
     resetForm()
   };
 
+
   return (
-    <AuthForm title='Добро пожаловать' name='registerForm' buttonText='Зарегистрироваться' onSubmit={handleSubmit}>
+    <AuthForm title='Добро пожаловать' name='registerForm' buttonText='Зарегистрироваться' onSubmit={handleSubmit} valid={isValid} error={error}>
       <label htmlFor='name' className='authForm__label'>Имя
         <input
           onChange={handleChange}
@@ -22,7 +29,8 @@ export default function Register() {
           className='authForm__input'
           autoComplete='name'
           required minLength={2} maxLength={30}
-          value={values.name}></input>
+          value={values.name}>
+          </input>
         <span className='authForm__error'>{errors.name}</span>
       </label>
       <label htmlFor='email' className='authForm__label'>E-mail

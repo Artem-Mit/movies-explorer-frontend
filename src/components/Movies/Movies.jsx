@@ -21,8 +21,6 @@ export default function Movies() {
       })
   }
 
-  console.log(filmsToRender)
-
   return (
     <>
       <SearchForm onSearch={onSearch} />

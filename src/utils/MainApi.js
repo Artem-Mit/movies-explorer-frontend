@@ -27,10 +27,27 @@ class MainApi {
     });
     return this._checkResult(res);
   };
+
+  async deleteMovie(id) {
+    const res = await fetch(`${this.url}/movies/${id}`, {
+      method: 'DELETE',
+      headers: { "Content-Type": "application/json" }
+    });
+    return this._checkResult(res);
+  }
+
+  async createMovie(data) {
+    const res = await fetch(`${this.url}/movies`, {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+    return this._checkResult(res);
+  }
 }
 
 const mainApi = new MainApi({
-  url: 'https://api.prakticum-diploma.nomoredomains.work/'
+  url: process.env.REACT_APP_API_SRV,
 })
 
 export default mainApi;
