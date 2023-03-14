@@ -1,6 +1,6 @@
 class MainApi {
   constructor (options) {
-    this.url = options.url;
+    this._url = options.url;
   }
 
   _checkResult(res) {
@@ -11,7 +11,7 @@ class MainApi {
   }
 
   async register(data) {
-    const res = await fetch(`${this.url}/signup`, {
+    const res = await fetch(`${this._url}/signup`, {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -20,7 +20,7 @@ class MainApi {
   };
 
   async login(data) {
-    const res = await fetch(`${this.url}/signin`, {
+    const res = await fetch(`${this._url}/signin`, {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -28,8 +28,19 @@ class MainApi {
     return this._checkResult(res);
   };
 
+  async checkIn(token) {
+    const res = await fetch(`${this._url}/users/me`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "authorization": `Bearer ${token}`
+      }
+    });
+    return this._checkResult(res);
+  }
+
   async deleteMovie(id) {
-    const res = await fetch(`${this.url}/movies/${id}`, {
+    const res = await fetch(`${this._url}/movies/${id}`, {
       method: 'DELETE',
       headers: { "Content-Type": "application/json" }
     });
@@ -37,7 +48,7 @@ class MainApi {
   }
 
   async createMovie(data) {
-    const res = await fetch(`${this.url}/movies`, {
+    const res = await fetch(`${this._url}/movies`, {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)

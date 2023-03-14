@@ -1,12 +1,10 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './Navigation.css'
 
-export default function Navigation({ loggedIn, showNav, login, toggleNav, logout }) {
-  function goHome() {
-    logout()
-    toggleNav()
-  }
+export default function Navigation({ loggedIn, showNav, toggleNav }) {
+  const nav = useNavigate()
+
   return (
     <>
       {!loggedIn && (
@@ -16,8 +14,8 @@ export default function Navigation({ loggedIn, showNav, login, toggleNav, logout
               <NavLink to='/signup' className='navigation__link'>Регистрация</NavLink>
             </li>
             <li className='navigation__link-container'>
-              <NavLink className='navigation__link' to='/movies'>
-                <div className='navigation__button' onClick={() => login()}>Войти</div>
+              <NavLink className='navigation__link' to='/signin'>
+                <div className='navigation__button'>Войти</div>
               </NavLink>
             </li>
           </ul>
@@ -29,7 +27,7 @@ export default function Navigation({ loggedIn, showNav, login, toggleNav, logout
             <li className='navigation__link-container navigation__link-container_loggedIn'>
               <NavLink to='/' end={true}
                 className={({ isActive }) => isActive ? 'navigation__link navigation__link_loggedIn navigation__link_active' : 'navigation__link navigation__link_loggedIn'}
-                onClick={goHome}>
+                onClick={() => nav('/')}>
                 Главная
               </NavLink>
             </li>

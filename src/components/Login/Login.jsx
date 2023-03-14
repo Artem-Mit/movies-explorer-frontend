@@ -2,17 +2,19 @@ import React from 'react';
 import AuthForm from '../AuthForm/AuthForm';
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
-export default function Login() {
-  const { values, handleChange, errors, resetForm } =
+export default function Login({onSubmit, authError}) {
+
+  const { values, handleChange, errors, resetForm, isValid } =
     useFormAndValidation({ email: "", password: ""});
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    onSubmit({email: values.email, password: values.password})
     resetForm()
   };
 
   return (
-    <AuthForm title='Рады видеть!' name='loginForm' buttonText='Войти' onSubmit={handleSubmit}>
+    <AuthForm title='Рады видеть!' name='loginForm' buttonText='Войти' onSubmit={handleSubmit} valid={isValid} error={authError}>
       <label htmlFor='email' className='authForm__label'>E-mail
         <input
           onChange={handleChange}
