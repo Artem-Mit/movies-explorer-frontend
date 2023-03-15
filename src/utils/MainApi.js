@@ -1,5 +1,5 @@
 class MainApi {
-  constructor (options) {
+  constructor(options) {
     this._url = options.url;
   }
 
@@ -35,6 +35,19 @@ class MainApi {
         "Content-Type": "application/json",
         "authorization": `Bearer ${token}`
       }
+    });
+    return this._checkResult(res);
+  }
+
+  async updateUser(data) {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${this._url}/users/me`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(data),
     });
     return this._checkResult(res);
   }

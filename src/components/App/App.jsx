@@ -47,7 +47,7 @@ function App() {
     const token = localStorage.getItem('token');
     if (token) {
        mainApi.checkIn(token)
-        .then((res) => setCurrentUser(res))
+        .then((res) => {setCurrentUser(res); console.log(res)})
         .then(() => handleLogin())
         .catch((err) => console.log(err))
     }
@@ -58,6 +58,15 @@ function App() {
     nav('/');
     setCurrentUser({ name: "", email: "" });
     setLoggedIn(false);
+  }
+
+  function updateUser(data) {
+    mainApi.updateUser(data)
+      .then((res) => {
+        console.log(res)
+        setCurrentUser({ email: res.email, name: res.name });
+      })
+      .catch((err) => setAuthError(err));
   }
 
   return (
@@ -82,7 +91,7 @@ function App() {
           <Route path="profile"
             element={
               <ProtectedRoute loggedIn={loggedIn} >
-                <Profile onLogOut={logOut} />
+                <Profile onLogOut={logOut} onSubmit={updateUser} error={authError}/>
               </ProtectedRoute>}
           />
         </Route>
