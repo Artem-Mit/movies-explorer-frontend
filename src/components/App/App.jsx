@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Layout from '../Layout/Layout';
 import Login from '../Login/Login';
@@ -18,13 +18,6 @@ function App() {
   const [authError, setAuthError] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({ name: "", email: "" });
-  const [savedMovies, setSavedMovies] = useState([]);
-
-  useEffect(() => {
-    mainApi.getSavedMovies()
-      .then((setSavedMovies))
-      .catch((err) => console.log(err))
-  }, [])
 
   function handleLogin() {
     setLoggedIn(true);
@@ -83,7 +76,7 @@ function App() {
       <Routes>
         <Route path="/signin" element={<Login onSubmit={handleLoginSubmit} />} />
         <Route path="/signup" element={<Register onSubmit={handleRegistration} authError={authError} />} />
-        <Route path='/' element={<Layout loggedIn={loggedIn} onCheckIn={checkIn} savedMovies={savedMovies}/>}>
+        <Route path='/' element={<Layout loggedIn={loggedIn} onCheckIn={checkIn}  />}>
           <Route path='' element={<Main />} />
           <Route path="movies"
             element={

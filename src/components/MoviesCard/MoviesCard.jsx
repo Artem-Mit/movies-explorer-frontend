@@ -36,7 +36,7 @@ export default function MoviesCard({ movie }) {
   async function createMovie() {
     await mainApi.addMovieToFavourite(createMovieEntity(movie))
       .then(() => setFavouriteFilm(prev => !prev))
-      .catch(err => {console.log(err); console.log(createMovieEntity(movie))})
+      .catch(err => { console.log(err); console.log(createMovieEntity(movie)) })
   }
 
   function toggleFavourite() {
@@ -52,7 +52,10 @@ export default function MoviesCard({ movie }) {
       <h3 className='moviesCard__title'>{movie.nameRU}</h3>
       <p className='moviesCard__length'>{`${hours}ч ${minutes}м`}</p>
       <a href={movie.trailerLink} target='blanc'>
-        <img src={`https://api.nomoreparties.co/${movie.image.url}`} alt={movie.nameRU} className='moviesCard__image' />
+        <img src={location === '/saved-movies' ?
+          movie.image :
+          `https://api.nomoreparties.co/${movie.image.url}`}
+          alt={movie.nameRU} className='moviesCard__image' />
       </a>
       {location === '/movies' ?
         <button

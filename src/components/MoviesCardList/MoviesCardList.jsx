@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 
 
 export default function MoviesCardList({ movies }) {
+  const location = useLocation().pathname;
   const { width } = useWindowDimensions();
   const [moviesOnPage, setMoviesOnPage] = useState(movies.slice(0, moviesPerPage()).length);
 
@@ -35,20 +37,21 @@ export default function MoviesCardList({ movies }) {
 
   return (
     <div className='moviesCardList'>
-      {movies.length === 0 && <p className='moviesCardList__notFoundText'>Фильмы не найдены</p>}
-      {movies.length > 0 &&
+      {!movies.length && <p className='moviesCardList__notFoundText'>Фильмы не найдены</p>}
+      {movies.length &&
         <div className='moviesCardList__cards'>
           {movies.slice(0, moviesOnPage).map((movie) =>
             <MoviesCard
-              key={movie.id}
+              key={movie.id || movie._id}
               movie={movie} />
           )}
         </div>}
-      {!(movies.length === moviesOnPage) &&
-        <div className='moviesCardList__button' onClick={loadMore}>
-          Еще
-        </div>
-      }
+      {location !== '/saved-movies' &&
+        (!(movies.length === moviesOnPage) &&
+          <div className='moviesCardList__button' onClick={loadMore}>
+            Еще
+          </div>
+        )}
     </div>
   )
 }
