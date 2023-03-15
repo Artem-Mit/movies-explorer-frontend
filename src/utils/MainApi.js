@@ -52,22 +52,44 @@ class MainApi {
     return this._checkResult(res);
   }
 
-  async deleteMovie(id) {
-    const res = await fetch(`${this._url}/movies/${id}`, {
-      method: 'DELETE',
-      headers: { "Content-Type": "application/json" }
+  async getSavedMovies() {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${this._url}/movies`, {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+        "authorization": `Bearer ${token}`
+      },
     });
     return this._checkResult(res);
   }
 
-  async createMovie(data) {
+  async addMovieToFavourite(data) {
+    const token = localStorage.getItem('token');
     const res = await fetch(`${this._url}/movies`, {
       method: 'POST',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+      headers: {
+        "Content-Type": "application/json",
+        "authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(data),
     });
     return this._checkResult(res);
   }
+
+  async deleteMovieFromFavourite(id) {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${this._url}/movies/${id}`, {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json",
+        "authorization": `Bearer ${token}`
+      }
+    });
+    return this._checkResult(res);
+  }
+
+
 }
 
 const mainApi = new MainApi({

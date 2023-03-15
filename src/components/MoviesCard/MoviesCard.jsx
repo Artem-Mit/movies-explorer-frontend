@@ -11,16 +11,32 @@ export default function MoviesCard({ movie }) {
   const hours = Math.floor(movie.duration / 60);
   const minutes = movie.duration % 60;
 
-  function createMovie() {
-    mainApi.createMovie(movie)
+
+  function createMovieEntity(movie) {
+    console.log(movie)
+    const movieData = {
+      ...movie,
+      movieId: movie.id,
+      image: `https://api.nomoreparties.co${movie.image.url}`,
+      thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+    };
+    delete movieData.id;
+    delete movieData.created_at;
+    delete movieData.updated_at;
+    return movieData;
+  }
+
+
+  async function deleteMovie() {
+    await mainApi.deleteMovieFromFavourite(movie.id)
       .then(setFavouriteFilm(prev => !prev))
       .catch((err) => console.log(err))
   }
 
-  function deleteMovie() {
-    mainApi.deleteMovie(movie.id)
-      .then(setFavouriteFilm(prev => !prev))
-      .catch((err) => console.log(err))
+  async function createMovie() {
+    await mainApi.addMovieToFavourite(createMovieEntity(movie))
+      .then(() => setFavouriteFilm(prev => !prev))
+      .catch(err => {console.log(err); console.log(createMovieEntity(movie))})
   }
 
   function toggleFavourite() {

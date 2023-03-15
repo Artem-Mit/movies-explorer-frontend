@@ -3,7 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
 
-export default function Layout({loggedIn, onCheckIn}) {
+export default function Layout({loggedIn, onCheckIn, savedMovies}) {
   const location = useLocation().pathname;
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function Layout({loggedIn, onCheckIn}) {
     <>
       <Header loggedIn={loggedIn}/>
       <main>
-        <Outlet />
+        <Outlet savedMovies={savedMovies}/>
       </main>
       {location !== '/profile' && <Footer />}
     </>

@@ -9,21 +9,26 @@ import Preloader from '../Preloader/Preloader';
 export default function Movies() {
   const [preloaderVisible, setPreloaderVisible] = useState(false);
   const [filmsToRender, setFilmsToRender] = useState([]);
+  const [isShort, setIsShort] = useState(false);
   const [error, setError] = useState(false);
 
-  function onSearch({ value }) {
+  function onSearch({ name }) {
     setPreloaderVisible(true)
     moviesApi.getMovies()
-      .then((res) => { setError(false); setFilmsToRender(filmsfilter(res, value)) })
+      .then((res) => { setError(false); setFilmsToRender(filmsfilter(res, name, isShort)) })
       .catch((err) => { console.log(err); setError(true) })
       .finally(() => {
         setPreloaderVisible(false);
       })
   }
 
+  function onCheck() {
+    setIsShort(prev => !prev);
+  }
+
   return (
     <>
-      <SearchForm onSearch={onSearch} />
+      <SearchForm onSearch={onSearch} isShort={isShort} onCheckboxClick={onCheck}/>
       <section className="movies" aria-label='Фильмы'>
         {preloaderVisible ? <Preloader /> :
           <>
@@ -31,7 +36,7 @@ export default function Movies() {
               Во время запроса произошла ошибка.<br />
               Возможно, проблема с соединением или сервер недоступен.<br />
               Подождите немного и попробуйте ещё раз</p>}
-            {!error && <MoviesCardList films={filmsToRender} />}
+            {!error && <MoviesCardList movies={filmsToRender} />}
           </>}
       </section>
     </>
