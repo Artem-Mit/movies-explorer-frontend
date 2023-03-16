@@ -8,9 +8,9 @@ import useWindowDimensions from '../../hooks/useWindowDimensions';
 export default function MoviesCardList({ movies, savedMovies, deleteSavedMovie, addMovieToFavourite, removeMovieFromFavourite }) {
   const location = useLocation().pathname;
   const { width } = useWindowDimensions();
-  const [moviesOnPage, setMoviesOnPage] = useState(movies.slice(0, moviesPerPage()).length);
+  const [moviesOnPage, setMoviesOnPage] = useState(movies.slice(0, setMoviesPerPage()).length);
 
-  function moviesPerPage() {
+  function setMoviesPerPage() {
     if (width <= 550) {
       return 5
     }

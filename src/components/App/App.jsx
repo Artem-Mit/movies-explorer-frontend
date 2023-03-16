@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Layout from '../Layout/Layout';
 import Login from '../Login/Login';
@@ -18,6 +18,10 @@ function App() {
   const [authError, setAuthError] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({ name: "", email: "" });
+
+  useEffect(() => {
+    setAuthError('')
+  }, [nav])
 
   function handleLogin() {
     setLoggedIn(true);
@@ -65,8 +69,8 @@ function App() {
     setAuthError('')
     mainApi.updateUser(data)
       .then((res) => {
-        console.log(res)
         setCurrentUser({ email: res.email, name: res.name });
+        setAuthError('Все обновилось :)');
       })
       .catch((err) => setAuthError(err));
   }

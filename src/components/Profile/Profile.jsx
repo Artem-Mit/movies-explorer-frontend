@@ -15,7 +15,9 @@ export default function Profile({ onLogOut, onSubmit, error }) {
 
   function updateUser(e) {
     e.preventDefault();
-    onSubmit({ name: values.name, email: values.email });
+    if ((values.name !== currentUser.name) || (values.email !== currentUser.email)) {
+      onSubmit({ name: values.name, email: values.email });
+    }
     setIsActive(false)
   }
 
