@@ -5,7 +5,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 
 
-export default function MoviesCardList({ movies }) {
+export default function MoviesCardList({ movies, savedMovies, deleteSavedMovie, addMovieToFavourite, removeMovieFromFavourite }) {
   const location = useLocation().pathname;
   const { width } = useWindowDimensions();
   const [moviesOnPage, setMoviesOnPage] = useState(movies.slice(0, moviesPerPage()).length);
@@ -21,7 +21,6 @@ export default function MoviesCardList({ movies }) {
       return 12
     }
   }
-
 
   function loadMore() {
     if (width <= 550) {
@@ -42,6 +41,10 @@ export default function MoviesCardList({ movies }) {
         <div className='moviesCardList__cards'>
           {movies.slice(0, moviesOnPage).map((movie) =>
             <MoviesCard
+              removeMovieFromFavourite={removeMovieFromFavourite}
+              addMovieToFavourite={addMovieToFavourite}
+              deleteSavedMovie={deleteSavedMovie}
+              savedMovies={savedMovies}
               key={movie.id || movie._id}
               movie={movie} />
           )}

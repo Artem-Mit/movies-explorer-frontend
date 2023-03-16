@@ -6,11 +6,11 @@ export default function filmsfilter(movies, movieName, short) {
     ~movie.nameEN.toLowerCase().indexOf(name.toLowerCase()))
   }
 
-  if (!short) {
+  if (!short ) {
     return filterByName();
   }
 
-  if (short) {
+  if ( short ) {
     const FilmsFilteredByName = filterByName();
     return FilmsFilteredByName.filter((movie) => movie.duration <= 40);
   }

@@ -23,20 +23,20 @@ function App() {
     setLoggedIn(true);
   }
 
-  async function handleRegistration(data) {
+  function handleRegistration(data) {
     if (!data.email || !data.password || !data.name) {
       setAuthError('Необходимо ввести логин и пароль')
       return;
     }
     setAuthError('')
-    await mainApi.register(data)
+    mainApi.register(data)
       .then(() => handleLoginSubmit(data))
       .catch((err) => setAuthError(err))
   }
 
-  async function handleLoginSubmit(data) {
+  function handleLoginSubmit(data) {
     setAuthError('')
-    await mainApi.login({ email: data.email, password: data.password })
+    mainApi.login({ email: data.email, password: data.password })
       .then((res) => localStorage.setItem("token", res.token))
       .then(() => handleLogin())
       .catch((err) => setAuthError(err))
@@ -47,7 +47,7 @@ function App() {
     const token = localStorage.getItem('token');
     if (token) {
       mainApi.checkIn(token)
-        .then((res) => { setCurrentUser(res); console.log(res) })
+        .then((res) => { setCurrentUser(res); })
         .then(() => handleLogin())
         .catch((err) => console.log(err))
     }
@@ -58,6 +58,7 @@ function App() {
     nav('/');
     setCurrentUser({ name: "", email: "" });
     setLoggedIn(false);
+    sessionStorage.clear()
   }
 
   function updateUser(data) {
@@ -76,7 +77,7 @@ function App() {
       <Routes>
         <Route path="/signin" element={<Login onSubmit={handleLoginSubmit} />} />
         <Route path="/signup" element={<Register onSubmit={handleRegistration} authError={authError} />} />
-        <Route path='/' element={<Layout loggedIn={loggedIn} onCheckIn={checkIn}  />}>
+        <Route path='/' element={<Layout loggedIn={loggedIn} onCheckIn={checkIn} />}>
           <Route path='' element={<Main />} />
           <Route path="movies"
             element={

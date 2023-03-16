@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './MoviesCard.css';
 import { useLocation } from 'react-router-dom';
-import mainApi from '../../utils/MainApi';
 
-export default function MoviesCard({ movie }) {
+export default function MoviesCard({ movie, savedMovies, deleteSavedMovie, addMovieToFavourite, removeMovieFromFavourite }) {
   const location = useLocation().pathname;
   const [favouriteFilm, setFavouriteFilm] = useState(false);
   const allFilmsClass = `moviesCard__button moviesCard__button_not-saved ${favouriteFilm ? 'moviesCard__button_saved' : ''}`;
@@ -11,9 +10,18 @@ export default function MoviesCard({ movie }) {
   const hours = Math.floor(movie.duration / 60);
   const minutes = movie.duration % 60;
 
+  useEffect(() => {
+    if (savedMovies) {
+      const favouriteFilm = savedMovies.find((savedMovie) => savedMovie.movieId === movie.id);
+      if (favouriteFilm) {
+        setFavouriteFilm(true);
+      } else {
+        setFavouriteFilm(false);
+      }
+    }
+  }, [savedMovies, movie])
 
   function createMovieEntity(movie) {
-    console.log(movie)
     const movieData = {
       ...movie,
       movieId: movie.id,
@@ -21,22 +29,22 @@ export default function MoviesCard({ movie }) {
       thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
     };
     delete movieData.id;
+    delete movieData._id;
     delete movieData.created_at;
     delete movieData.updated_at;
     return movieData;
   }
 
-
-  async function deleteMovie() {
-    await mainApi.deleteMovieFromFavourite(movie.id)
-      .then(setFavouriteFilm(prev => !prev))
-      .catch((err) => console.log(err))
+  function deleteMovie() {
+    if (location === '/saved-movies') {
+      deleteSavedMovie(movie);
+      return;
+    }
+    removeMovieFromFavourite(movie);
   }
 
-  async function createMovie() {
-    await mainApi.addMovieToFavourite(createMovieEntity(movie))
-      .then(() => setFavouriteFilm(prev => !prev))
-      .catch(err => { console.log(err); console.log(createMovieEntity(movie)) })
+  function createMovie() {
+    addMovieToFavourite(createMovieEntity(movie));
   }
 
   function toggleFavourite() {
@@ -46,6 +54,7 @@ export default function MoviesCard({ movie }) {
       createMovie()
     }
   }
+
 
   return (
     <article className='moviesCard'>
@@ -64,7 +73,7 @@ export default function MoviesCard({ movie }) {
         </button> :
         <button
           className={savedFilmsClass}
-          onClick={toggleFavourite}
+          onClick={deleteMovie}
         >
         </button>
       }

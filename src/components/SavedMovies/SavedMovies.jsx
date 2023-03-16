@@ -16,8 +16,13 @@ export default function SavedMovies() {
   useEffect(() => {
     setPreloaderVisible(true)
     mainApi.getSavedMovies()
-      .then((res) => {setError(false); setMoviesToRender(res)})
-      .catch(() => setError(true))
+      .then((res) => { setError(false); setMoviesToRender(res) })
+      .catch((err) => {
+        if (err === 'Ошибка: 404') {
+          return;
+        }
+        setError(true);
+      })
       .finally(() => setPreloaderVisible(false))
   }, [])
 
@@ -29,18 +34,28 @@ export default function SavedMovies() {
     setIsShort(prev => !prev);
   }
 
+  function deleteSavedMovie(movie) {
+    console.log(movie)
+    mainApi.deleteMovieFromFavourite(movie._id)
+      .then(() => {
+        const newMoviesList = moviesToRender.filter((film) => movie._id !== film._id);
+        setMoviesToRender(newMoviesList);
+      })
+      .catch(err => console.log(err))
+  }
+
 
   return (
     <>
       <SearchForm onSearch={onSearch} isShort={isShort} onCheckboxClick={onCheck} />
       <section className='saved-movies' aria-label='Сохраненные фильмы' >
-      {preloaderVisible ? <Preloader /> :
+        {preloaderVisible ? <Preloader /> :
           <>
             {error && <p className='saved-movies__error'>
               Во время запроса произошла ошибка.<br />
               Возможно, проблема с соединением или сервер недоступен.<br />
               Подождите немного и попробуйте ещё раз</p>}
-            {!error && <MoviesCardList movies={moviesToRender} />}
+            {!error && <MoviesCardList movies={moviesToRender} deleteSavedMovie={deleteSavedMovie}/>}
           </>}
       </section>
     </>

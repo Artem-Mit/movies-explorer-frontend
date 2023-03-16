@@ -160,10 +160,11 @@
     position: fixed;
     top: 29px;
     right: 29px;
-    background-image: url(../../images/x_icon.png);
+    background-image: url(../../images/x_icon.svg);
     width: 22px;
     height: 22px;
     background-position: center;
+    cursor: pointer;
   }
 }
 

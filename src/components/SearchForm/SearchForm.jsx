@@ -1,14 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import './SearchForm.css';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
+import { useLocation } from 'react-router-dom';
 
-export default function SearchForm({onSearch, isShort, onCheckboxClick}) {
-
+export default function SearchForm({ onSearch }) {
+  const location = useLocation().pathname
+  const [isShort, setIsShort] = useState(false);
   const [formErrorVisibile, setFormErrorVisible] = useState(false);
-  const { values, handleChange, resetForm } =
+  const { values, handleChange, resetForm, setValues } =
     useFormAndValidation({ film: '' });
 
+
+  useEffect(() => {
+    if (location === '/movies') {
+      const name = sessionStorage.getItem('movieName');
+      const shortMovie = JSON.parse(sessionStorage.getItem('shortFilm'));
+      if (name) {
+        setValues({ film: name });
+      }
+      if ( !shortMovie ) {
+        setIsShort(false)
+      } else {
+        setIsShort(true);
+      }
+    }
+  }, [location, setValues])
 
   function submitSearchForm(e) {
     e.preventDefault();
@@ -18,8 +35,12 @@ export default function SearchForm({onSearch, isShort, onCheckboxClick}) {
       resetForm();
       return;
     }
-    onSearch({name: values.film})
+    onSearch({ name: values.film, checked: isShort })
     resetForm();
+  }
+
+  function onCheck() {
+    setIsShort(prev => !prev);
   }
 
 
@@ -31,7 +52,7 @@ export default function SearchForm({onSearch, isShort, onCheckboxClick}) {
           <button className='searchForm__button' type='submit' >Поиск</button>
         </fieldset>
         <span className={`searchForm__error ${formErrorVisibile ? 'searchForm__error_visible' : ''}`}>Нужно ввести ключевое слово</span>
-        <FilterCheckbox checked={isShort} onCheckboxClick={onCheckboxClick}/>
+        <FilterCheckbox checked={isShort} onCheckboxClick={onCheck} />
         <div className='searchForm__bottom-line'></div>
       </form>
     </section>
