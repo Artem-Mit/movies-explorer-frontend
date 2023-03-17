@@ -5,6 +5,7 @@ import './SavedMovies.css';
 import filmsfilter from '../../utils/filmsFilter';
 import mainApi from '../../utils/MainApi';
 import Preloader from '../Preloader/Preloader';
+import { NOT_FOUND_ERROR_CODE } from '../../utils/constants';
 
 
 export default function SavedMovies() {
@@ -18,7 +19,7 @@ export default function SavedMovies() {
     mainApi.getSavedMovies()
       .then((res) => { setError(false); setMoviesToRender(res) })
       .catch((err) => {
-        if (err === 'Ошибка: 404') {
+        if (err === NOT_FOUND_ERROR_CODE) {
           return;
         }
         setError(true);
@@ -35,7 +36,6 @@ export default function SavedMovies() {
   }
 
   function deleteSavedMovie(movie) {
-    console.log(movie)
     mainApi.deleteMovieFromFavourite(movie._id)
       .then(() => {
         const newMoviesList = moviesToRender.filter((film) => movie._id !== film._id);

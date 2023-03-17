@@ -12,6 +12,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import './App.css';
 import mainApi from '../../utils/MainApi';
+import { ALREADY_EXIST_MESSAGE, ALREADY_EXIST_CODE, AUTH_ERROR_CODE, WRONG_AUTH_DATA_MESSAGE } from '../../utils/constants';
 
 function App() {
   const nav = useNavigate()
@@ -21,31 +22,40 @@ function App() {
 
   useEffect(() => {
     setAuthError('')
-  }, [nav])
+  }, [nav]);
 
   function handleLogin() {
     setLoggedIn(true);
-  }
+  };
 
   function handleRegistration(data) {
     if (!data.email || !data.password || !data.name) {
-      setAuthError('Необходимо ввести логин и пароль')
+      setAuthError(WRONG_AUTH_DATA_MESSAGE)
       return;
-    }
+    };
     setAuthError('')
     mainApi.register(data)
       .then(() => handleLoginSubmit(data))
-      .catch((err) => setAuthError(err))
-  }
+      .catch((err) => {
+        if (err === ALREADY_EXIST_CODE) {
+          setAuthError(ALREADY_EXIST_MESSAGE);
+          return
+        }
+        setAuthError(err)})
+  };
 
   function handleLoginSubmit(data) {
     setAuthError('')
     mainApi.login({ email: data.email, password: data.password })
       .then((res) => localStorage.setItem("token", res.token))
-      .then(() => handleLogin())
-      .catch((err) => setAuthError(err))
-      .finally(() => nav('/movies'))
-  }
+      .then(() => {handleLogin(); nav('/movies')})
+      .catch((err) => {
+        if (err === AUTH_ERROR_CODE) {
+          setAuthError(WRONG_AUTH_DATA_MESSAGE);
+          return;
+        };
+        setAuthError(err)})
+  };
 
   const checkIn = useCallback(() => {
     const token = localStorage.getItem('token');
@@ -63,7 +73,7 @@ function App() {
     setCurrentUser({ name: "", email: "" });
     setLoggedIn(false);
     sessionStorage.clear()
-  }
+  };
 
   function updateUser(data) {
     setAuthError('')
@@ -73,13 +83,13 @@ function App() {
         setAuthError('Все обновилось :)');
       })
       .catch((err) => setAuthError(err));
-  }
+  };
 
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Routes>
-        <Route path="/signin" element={<Login onSubmit={handleLoginSubmit} />} />
+        <Route path="/signin" element={<Login onSubmit={handleLoginSubmit} authError={authError}/>} />
         <Route path="/signup" element={<Register onSubmit={handleRegistration} authError={authError} />} />
         <Route path='/' element={<Layout loggedIn={loggedIn} onCheckIn={checkIn} />}>
           <Route path='' element={<Main />} />
