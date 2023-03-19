@@ -1,15 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AuthForm from '../AuthForm/AuthForm';
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
+import { VALIDATION_ERROR_MESSAGE } from '../../utils/constants';
 
-export default function Register({ onSubmit, authError }) {
-  const { values, handleChange, errors, resetForm, isValid } =
+export default function Register({ onSubmit, authError, isLoading }) {
+  const { values, handleChange, errors, isValid } =
     useFormAndValidation({ email: "", password: "", name: "" });
+  const [regError,setRegError] = useState('')
+
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    onSubmit({email: values.email, name: values.name, password: values.password})
-    resetForm()
+    setRegError('')
+    if (validateEmail(values.email)) {
+      onSubmit({ email: values.email, name: values.name, password: values.password })
+    } else {
+      setRegError(VALIDATION_ERROR_MESSAGE)
+    }
   };
 
 
@@ -19,7 +33,8 @@ export default function Register({ onSubmit, authError }) {
       buttonText='Зарегистрироваться'
       onSubmit={handleSubmit}
       valid={isValid}
-      error={authError}>
+      error={authError || regError}
+      isLoading={isLoading}>
       <label htmlFor='name' className='authForm__label'>Имя
         <input
           onChange={handleChange}

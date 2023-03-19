@@ -3,7 +3,7 @@ import './AuthForm.css';
 import logo from '../../images/logo.svg';
 import { Link, useLocation } from 'react-router-dom';
 
-export default function AuthForm({ title, name, buttonText, onSubmit, children, valid, error }) {
+export default function AuthForm({ title, name, buttonText, onSubmit, children, valid, error, isLoading }) {
   const loc = useLocation().pathname;
 
   return (
@@ -21,7 +21,7 @@ export default function AuthForm({ title, name, buttonText, onSubmit, children, 
           {children}
         </fieldset>
         {error && <span className='authForm__error-text'>{error}</span>}
-        <button className={`authForm__button ${valid ? '' : 'authForm__button_disabled'}`} type="submit" onSubmit={onSubmit} disabled={!valid}>
+        <button className={`authForm__button ${valid ? '' : 'authForm__button_disabled'} ${isLoading ? 'authForm__button_disabled' : ''}`} type="submit" onSubmit={onSubmit} disabled={!valid || isLoading}>
           {buttonText}
         </button>
         {loc === '/signup' ?

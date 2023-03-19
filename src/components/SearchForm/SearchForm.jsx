@@ -8,7 +8,7 @@ export default function SearchForm({ onSearch }) {
   const location = useLocation().pathname
   const [isShort, setIsShort] = useState(false);
   const [formErrorVisibile, setFormErrorVisible] = useState(false);
-  const { values, handleChange, resetForm, setValues } =
+  const { values, handleChange, setValues } =
     useFormAndValidation({ film: '' });
 
 
@@ -32,11 +32,9 @@ export default function SearchForm({ onSearch }) {
     setFormErrorVisible(false);
     if (values.film.trim() === '') {
       setFormErrorVisible(true);
-      resetForm();
       return;
     }
     onSearch({ name: values.film, checked: isShort })
-    resetForm();
   }
 
   function onCheck() {

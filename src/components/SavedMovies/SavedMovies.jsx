@@ -12,12 +12,13 @@ export default function SavedMovies() {
   const [preloaderVisible, setPreloaderVisible] = useState(false);
   const [isShort, setIsShort] = useState(false);
   const [moviesToRender, setMoviesToRender] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([])
   const [error, setError] = useState(false);
 
   useEffect(() => {
     setPreloaderVisible(true)
     mainApi.getSavedMovies()
-      .then((res) => { setError(false); setMoviesToRender(res) })
+      .then((res) => { setError(false); setMoviesToRender(res); setSavedMovies(res) })
       .catch((err) => {
         if (err === NOT_FOUND_ERROR_CODE) {
           return;
@@ -28,7 +29,7 @@ export default function SavedMovies() {
   }, [])
 
   function onSearch({ name }) {
-    setMoviesToRender(filmsfilter(moviesToRender, name, isShort))
+    setMoviesToRender(filmsfilter(savedMovies, name, isShort))
   }
 
   function onCheck() {
@@ -42,6 +43,7 @@ export default function SavedMovies() {
         setMoviesToRender(newMoviesList);
       })
       .catch(err => console.log(err))
+      setSavedMovies(prev => prev.filter((film) => movie._id !== film._id))
   }
 
 

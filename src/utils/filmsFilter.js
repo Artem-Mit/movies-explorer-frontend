@@ -1,3 +1,5 @@
+import { shortMovieLength } from "./constants";
+
 export default function filmsfilter(movies, movieName, short) {
   function filterByName(films = movies, name = movieName) {
     return films.filter((movie) =>
@@ -12,7 +14,7 @@ export default function filmsfilter(movies, movieName, short) {
 
   if ( short ) {
     const FilmsFilteredByName = filterByName();
-    return FilmsFilteredByName.filter((movie) => movie.duration <= 40);
+    return FilmsFilteredByName.filter((movie) => movie.duration <= shortMovieLength);
   }
 }
 

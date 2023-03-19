@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
+import { eightMoviesPerPage, fiveMoviesPerPage, twelveMoviesPerPage } from '../../utils/constants';
 
 
 export default function MoviesCardList({ movies, savedMovies, deleteSavedMovie, addMovieToFavourite, removeMovieFromFavourite }) {
@@ -12,25 +13,25 @@ export default function MoviesCardList({ movies, savedMovies, deleteSavedMovie, 
 
   function setMoviesPerPage() {
     if (width <= 550) {
-      return 5
+      return fiveMoviesPerPage;
     }
     if (width <= 768) {
-      return 8
+      return eightMoviesPerPage;
     }
     if (width > 1280 || width <= 1280) {
-      return 12
+      return twelveMoviesPerPage;
     }
   }
 
   function loadMore() {
     if (width <= 550) {
-      return setMoviesOnPage(prev => prev + 1);
+      return setMoviesOnPage(numberOfFilmsPerPage => numberOfFilmsPerPage + 1);
     }
     if (width <= 768) {
-      return setMoviesOnPage(prev => prev + 2);
+      return setMoviesOnPage(numberOfFilmsPerPage => numberOfFilmsPerPage + 2);
     }
     if (width > 1280 || width <= 1280) {
-      return setMoviesOnPage(prev => prev + 3);
+      return setMoviesOnPage(numberOfFilmsPerPage => numberOfFilmsPerPage + 3);
     }
   }
 
@@ -50,7 +51,7 @@ export default function MoviesCardList({ movies, savedMovies, deleteSavedMovie, 
           )}
         </div>}
       {location !== '/saved-movies' &&
-        (!(movies.length === moviesOnPage) &&
+        (movies.length > moviesOnPage &&
           <div className='moviesCardList__button' onClick={loadMore}>
             Еще
           </div>

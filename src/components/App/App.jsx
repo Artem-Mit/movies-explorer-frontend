@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Layout from '../Layout/Layout';
 import Login from '../Login/Login';
@@ -19,9 +19,21 @@ function App() {
   const [authError, setAuthError] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({ name: "", email: "" });
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setAuthError('')
+    const token = localStorage.getItem('token');
+    if (token) {
+      mainApi.checkIn(token)
+        .then((res) => setCurrentUser(res))
+        .then(() => handleLogin())
+        .catch((err) => console.log(err))
+    }
+  }, [loggedIn]);
+
+  useEffect(() => {
+    setAuthError('');
+    setIsLoading(false);
   }, [nav]);
 
   function handleLogin() {
@@ -29,6 +41,7 @@ function App() {
   };
 
   function handleRegistration(data) {
+    setIsLoading(true);
     if (!data.email || !data.password || !data.name) {
       setAuthError(WRONG_AUTH_DATA_MESSAGE)
       return;
@@ -36,36 +49,32 @@ function App() {
     setAuthError('')
     mainApi.register(data)
       .then(() => handleLoginSubmit(data))
+      .then(() => setIsLoading(false))
       .catch((err) => {
         if (err === ALREADY_EXIST_CODE) {
           setAuthError(ALREADY_EXIST_MESSAGE);
           return
         }
-        setAuthError(err)})
+        setAuthError(err);
+      })
+      .finally(() => setIsLoading(false))
   };
 
   function handleLoginSubmit(data) {
     setAuthError('')
+    setIsLoading(true);
     mainApi.login({ email: data.email, password: data.password })
       .then((res) => localStorage.setItem("token", res.token))
-      .then(() => {handleLogin(); nav('/movies')})
+      .then(() => { handleLogin(); nav('/movies'); setIsLoading(false); })
       .catch((err) => {
         if (err === AUTH_ERROR_CODE) {
           setAuthError(WRONG_AUTH_DATA_MESSAGE);
           return;
         };
-        setAuthError(err)})
+        setAuthError(err);
+      })
+      .finally(() => setIsLoading(false))
   };
-
-  const checkIn = useCallback(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      mainApi.checkIn(token)
-        .then((res) => { setCurrentUser(res); })
-        .then(() => handleLogin())
-        .catch((err) => console.log(err))
-    }
-  }, [])
 
   function logOut() {
     localStorage.removeItem('token');
@@ -85,29 +94,29 @@ function App() {
       .catch((err) => setAuthError(err));
   };
 
-
+  console.log(loggedIn)
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Routes>
-        <Route path="/signin" element={<Login onSubmit={handleLoginSubmit} authError={authError}/>} />
-        <Route path="/signup" element={<Register onSubmit={handleRegistration} authError={authError} />} />
-        <Route path='/' element={<Layout loggedIn={loggedIn} onCheckIn={checkIn} />}>
-          <Route path='' element={<Main />} />
-          <Route path="movies"
+        {!loggedIn && <Route path="/signin" element={<Login onSubmit={handleLoginSubmit} authError={authError} isLoading={isLoading} />} />}
+        {!loggedIn && <Route path="/signup" element={<Register onSubmit={handleRegistration} authError={authError} isLoading={isLoading} />} />}
+        <Route path='' element={<Layout loggedIn={loggedIn} />}>
+          <Route path='/' element={<Main />} />
+          <Route path="/movies"
             element={
-              <ProtectedRoute loggedIn={loggedIn} >
+              <ProtectedRoute >
                 <Movies />
               </ProtectedRoute>}
           />
-          <Route path="saved-movies"
+          <Route path="/saved-movies"
             element={
-              <ProtectedRoute loggedIn={loggedIn} >
+              <ProtectedRoute >
                 <SavedMovies />
               </ProtectedRoute>}
           />
-          <Route path="profile"
+          <Route path="/profile"
             element={
-              <ProtectedRoute loggedIn={loggedIn} >
+              <ProtectedRoute >
                 <Profile onLogOut={logOut} onSubmit={updateUser} error={authError} />
               </ProtectedRoute>}
           />
