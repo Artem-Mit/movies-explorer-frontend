@@ -9,6 +9,6 @@ export const VALIDATION_ERROR_MESSAGE = 'Введите валидные дан�
 
 export const fiveMoviesPerPage = 5;
 export const eightMoviesPerPage = 8;
-export const twelveMoviesPerPage = 8;
+export const twelveMoviesPerPage = 12;
 export const shortMovieLength = 40;
 
