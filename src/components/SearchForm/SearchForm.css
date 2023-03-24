@@ -33,7 +33,7 @@
   border-radius: 8px;
 }
 
-.searchForm__input:focus + .searchForm__button {
+.searchForm__input:focus+.searchForm__button {
   background-color: #FF3055;
 }
 
@@ -61,6 +61,25 @@
   height: 1px;
   background-color: rgba(170, 170, 170, .2);
   margin: 43px 0 10px 0;
+}
+
+.searchForm__error {
+  display: none;
+  text-align: center;
+  width: 100%;
+  height: 14px;
+  font-size: 11px;
+  line-height: 13px;
+  color: #FF004C;
+  margin: 0 auto;
+}
+
+.searchForm__error_visible {
+  display: block;
+}
+
+.searchForm__bottom-line {
+  display: block;
 }
 
 @media screen and (max-width: 1259px) {
